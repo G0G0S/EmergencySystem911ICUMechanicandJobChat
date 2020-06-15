@@ -13,6 +13,7 @@ and I want to clarify that any help you comment to help improve the script later
 the credits to the creator will be at the end, have a nice day :D
 
 [PD]: For alerts of police, ambulance and mechanic work the player has to restart the client in case the job has been set.
+[SOLVED PROBLEM]
 
 ----------------------------------------------------------------------------------------------------------------------------
 
