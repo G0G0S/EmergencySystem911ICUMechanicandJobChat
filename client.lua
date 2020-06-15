@@ -133,6 +133,7 @@ end, false)
 
 RegisterNetEvent('esx_jobChat:Send')
 AddEventHandler('esx_jobChat:Send', function(messageFull, job)
+    PlayerData = ESX.GetPlayerData()
     if PlayerData.job.name == job then
 		TriggerEvent('chat:addMessage', messageFull)
     end
@@ -144,6 +145,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:mechEmergencySend')
 AddEventHandler('esx_jobChat:mechEmergencySend', function(messageFull)
+    	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'mechanic' then
 		TriggerEvent('chat:addMessage', messageFull)
     end
@@ -155,6 +157,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:mechEmergencySend')
 AddEventHandler('esx_jobChat:mechEmergencySend', function(messageFull)
+	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'mechanic' then
 		SetNotificationTextEntry("STRINGS");
 		AddTextComponentString(normalString);
@@ -169,6 +172,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:911EmergencySend')
 AddEventHandler('esx_jobChat:911EmergencySend', function(messageFull)
+	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'police' then
 		TriggerEvent('chat:addMessage', messageFull)
     end
@@ -180,6 +184,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:911EmergencySend')
 AddEventHandler('esx_jobChat:911EmergencySend', function(messageFull)
+	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'police' then
 		SetNotificationTextEntry("STRINGS");
 		AddTextComponentString(normalString);
@@ -194,6 +199,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:311EmergencySend')
 AddEventHandler('esx_jobChat:311EmergencySend', function(messageFull)
+	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'ambulance' then
 		TriggerEvent('chat:addMessage', messageFull)
 	end
@@ -205,6 +211,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:311EmergencySend')
 AddEventHandler('esx_jobChat:311EmergencySend', function(messageFull)
+	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'ambulance' then
 		SetNotificationTextEntry("STRINGS");
 		AddTextComponentString(normalString);
@@ -219,6 +226,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:911Marker')
 AddEventHandler('esx_jobChat:911Marker', function(targetCoords, type)
+	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'police' then
         local alpha = 250
         local call = AddBlipForCoord(targetCoords.x, targetCoords.y, targetCoords.z)
@@ -258,6 +266,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:311Marker')
 AddEventHandler('esx_jobChat:311Marker', function(targetCoords, type)
+    PlayerData = ESX.GetPlayerData()
     if PlayerData.job.name == 'ambulance' then
 		local alpha = 250
 		local call = AddBlipForCoord(targetCoords.x, targetCoords.y, targetCoords.z)
@@ -297,6 +306,7 @@ end)
 
 RegisterNetEvent('esx_jobChat:mechMarker')
 AddEventHandler('esx_jobChat:mechMarker', function(targetCoords, type)
+    PlayerData = ESX.GetPlayerData()
     if PlayerData.job.name == 'mechanic' then
 		local alpha = 250
 		local call = AddBlipForCoord(targetCoords.x, targetCoords.y, targetCoords.z)
