@@ -1,6 +1,3 @@
------------------------------------------------------------------------------------------------------------------------------------
-
--- Players
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 function getIdentity(source)
@@ -22,10 +19,6 @@ function getIdentity(source)
 	end
 end
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Job General Chat
-
 RegisterServerEvent('esx_jobChat:chat')
 AddEventHandler('esx_jobChat:chat', function(job, msg)
     local _source = source
@@ -39,48 +32,37 @@ AddEventHandler('esx_jobChat:chat', function(job, msg)
     TriggerClientEvent('esx_jobChat:Send', -1, messageFull, job)
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- 311 Chat
-
-RegisterServerEvent('esx_jobChat:311')
-AddEventHandler('esx_jobChat:311', function(targetCoords, msg, streetName, emergency)
+RegisterServerEvent('esx_jobChat:112')
+AddEventHandler('esx_jobChat:112', function(targetCoords, msg, streetName, emergency)
     local _source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
 	fal = xPlayer.getName(source)
 	local messageFull
-	if emergency == '311' then
+	if emergency == '112' then
 		messageFull = {
-			template = '<div style="padding: 8px; margin: 8px; background-color: rgba(255, 51, 51); border-radius: 25px;"><i class="fas fa-bell"style="font-size:15px"></i> [ICU]: {0} | Location : {1} | {2}</font></i></b></div>',
+			template = '<div style="padding: 8px; margin: 8px; background-color: rgba(255, 51, 51); border-radius: 25px;"><i class="fas fa-bell"style="font-size:15px"></i> [112]: {0} | Ubicacion : {1} | {2}</font></i></b></div>',
         	args = {fal, streetName, msg, ped}
 		}
 	end
-	TriggerClientEvent('esx_jobChat:311Marker', -1, targetCoords, emergency)
-	TriggerClientEvent('esx_jobChat:311EmergencySend', -1, messageFull)
+	TriggerClientEvent('esx_jobChat:112Marker', -1, targetCoords, emergency)
+	TriggerClientEvent('esx_jobChat:112EmergencySend', -1, messageFull)
 end)
------------------------------------------------------------------------------------------------------------------------------------
 
--- 911 Chat
-
-RegisterServerEvent('esx_jobChat:911')
-AddEventHandler('esx_jobChat:911', function(targetCoords, msg, streetName, emergency)
+RegisterServerEvent('esx_jobChat:062')
+AddEventHandler('esx_jobChat:062', function(targetCoords, msg, streetName, emergency)
     local _source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
 	fal = xPlayer.getName(source)
 	local messageFull
-	if emergency == '911' then
+	if emergency == '062' then
 		messageFull = {
-			template = '<div style="padding: 8px; margin: 8px; background-color: rgba(0, 38, 153); border-radius: 25px;"><i class="fas fa-bell"style="font-size:15px"></i> [911] : {0} | Location : {1} | {2}</font></i></b></div>',
+			template = '<div style="padding: 8px; margin: 8px; background-color: rgba(0, 38, 153); border-radius: 25px;"><i class="fas fa-bell"style="font-size:15px"></i> [062] : {0} | Ubicacion : {1} | {2}</font></i></b></div>',
         	args = {fal, streetName, msg}
 		}
 	end
-	TriggerClientEvent('esx_jobChat:911Marker', -1, targetCoords, emergency)
-	TriggerClientEvent('esx_jobChat:911EmergencySend', -1, messageFull)
+	TriggerClientEvent('esx_jobChat:062Marker', -1, targetCoords, emergency)
+	TriggerClientEvent('esx_jobChat:062EmergencySend', -1, messageFull)
 end)
-
------------------------------------------------------------------------------------------------------------------------------------
-
--- Mechanic chat
 
 RegisterServerEvent('esx_jobChat:mech')
 AddEventHandler('esx_jobChat:mech', function(targetCoords, msg, streetName, emergency)
@@ -90,11 +72,10 @@ AddEventHandler('esx_jobChat:mech', function(targetCoords, msg, streetName, emer
 	local messageFull
 	if emergency == 'mech' then
 		messageFull = {
-			template = '<div style="padding: 8px; margin: 8px; background-color: rgba(128, 64, 0); border-radius: 25px;"><i class="fas fa-bell"style="font-size:15px"></i> [MECH] : {0} | Location : {1} | {2}</font></i></b></div>',
+			template = '<div style="padding: 8px; margin: 8px; background-color: rgba(128, 64, 0); border-radius: 25px;"><i class="fas fa-bell"style="font-size:15px"></i> [MECH] : {0} | Ubicacion : {1} | {2}</font></i></b></div>',
         	args = {fal, streetName, msg}
 		}
 	end
 	TriggerClientEvent('esx_jobChat:mechMarker', -1, targetCoords, emergency)
 	TriggerClientEvent('esx_jobChat:mechEmergencySend', -1, messageFull)
 end)
------------------------------------------------------------------------------------------------------------------------------------

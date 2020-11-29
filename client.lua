@@ -1,7 +1,3 @@
------------------------------------------------------------------------------------------------------------------------------------
-
--- Players
-
 ESX = nil
 
 Citizen.CreateThread(function()
@@ -24,31 +20,21 @@ Citizen.CreateThread(function()
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------------------------------------------------
-
--- Job General Command
-
-RegisterCommand('work', function(source, args, rawCommand)
-	local msg = rawCommand:sub(5)
+RegisterCommand('trabajo', function(source, args, rawCommand)
+	local msg = rawCommand:sub(8)
 	local job = PlayerData.job.name
     TriggerServerEvent('esx_jobChat:chat', job, msg)
 end, false)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- 911 Command
-
 Citizen.CreateThread(function()
-    TriggerEvent('chat:addSuggestion', '/911', 'Sending a notice to the authorities with 911!', {
-    { name="Complaint", help="Write your complaint here!" }
+    TriggerEvent('chat:addSuggestion', '/062', '¡Enviar un aviso a la policia con el /062!', {
+    { name="Problema", help="Escribe tu problema aquí!" }
 })
 end)
 
 msg = nil
-RegisterCommand('911', function(source, args, rawCommand)
-	TriggerEvent("chatMessage"," [911] " , {26, 83, 255},   "A notice has been sent to the Authorities" )
+RegisterCommand('062', function(source, args, rawCommand)
+	TriggerEvent("chatMessage"," [062] " , {26, 83, 255},   "Se ha enviado un aviso a la policia." )
 		
 	msg = table.concat(args, " ")
 	
@@ -58,27 +44,23 @@ RegisterCommand('911', function(source, args, rawCommand)
 		streetName,_ = GetStreetNameAtCoord(playerCoords.x, playerCoords.y, playerCoords.z)
         streetName = GetStreetNameFromHashKey(streetName)
 	local msg = rawCommand:sub(4)
-	local emergency = '911'
-    TriggerServerEvent('esx_jobChat:911',{
+	local emergency = '062'
+    TriggerServerEvent('esx_jobChat:062',{
         x = ESX.Math.Round(playerCoords.x, 1),
         y = ESX.Math.Round(playerCoords.y, 1),
         z = ESX.Math.Round(playerCoords.z, 1)
     }, msg, streetName, emergency)
 end, false)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- 311 Command
-
 Citizen.CreateThread(function()
-    TriggerEvent('chat:addSuggestion', '/icu', 'Sending a notice to the ICU Units with icu!', {
-    { name="Complaint", help="Write your complaint here!" }
+    TriggerEvent('chat:addSuggestion', '/112', 'Enviar un aviso a los EMS con el /112!', {
+    { name="Problema", help="Escribe tu problema aquí!" }
 })
 end)
 
 msg = nil
-RegisterCommand('icu', function(source, args, rawCommand)
-	TriggerEvent("chatMessage"," [ICU] ", {255,0,0},   "A notice has been sent to the ICU Units" )
+RegisterCommand('112', function(source, args, rawCommand)
+	TriggerEvent("chatMessage"," [112] ", {255,0,0},   "Se ha enviado un aviso a los EMS" )
 
 	msg = table.concat(args, " ")
 
@@ -89,26 +71,23 @@ RegisterCommand('icu', function(source, args, rawCommand)
 		streetName,_ = GetStreetNameAtCoord(playerCoords.x, playerCoords.y, playerCoords.z)
 		streetName = GetStreetNameFromHashKey(streetName)
 	local msg = rawCommand:sub(4)
-	local emergency = '311'
-    TriggerServerEvent('esx_jobChat:311',{
+	local emergency = '112'
+    TriggerServerEvent('esx_jobChat:112',{
         x = ESX.Math.Round(playerCoords.x, 1),
         y = ESX.Math.Round(playerCoords.y, 1),
         z = ESX.Math.Round(playerCoords.z, 1)
 	}, msg, streetName, emergency)
 end, false)
------------------------------------------------------------------------------------------------------------------------------------
-
--- Mechanic Command
 
 Citizen.CreateThread(function()
-    TriggerEvent('chat:addSuggestion', '/mech', 'Send an alert to the mechanics with mech!', {
-    { name="Complaint", help="Write your complaint here!" }
+    TriggerEvent('chat:addSuggestion', '/mech', 'Enviar un aviso al mecanico con /mech!', {
+    { name="Problema", help="Escribe tu problema aquí!" }
 })
 end)
 
 msg = nil
 RegisterCommand('mech', function(source, args, rawCommand)
-	TriggerEvent("chatMessage"," [MECH] ", {230, 115, 0},   "A notice has been sent to the Mechanic" )
+	TriggerEvent("chatMessage"," [MECH] ", {230, 115, 0},   "Se ha enviado un aviso al mecanico" )
 
 	msg = table.concat(args, " ")
 
@@ -127,10 +106,6 @@ RegisterCommand('mech', function(source, args, rawCommand)
 	}, msg, streetName, emergency)
 end, false)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Job General Chat
-
 RegisterNetEvent('esx_jobChat:Send')
 AddEventHandler('esx_jobChat:Send', function(messageFull, job)
     PlayerData = ESX.GetPlayerData()
@@ -138,10 +113,6 @@ AddEventHandler('esx_jobChat:Send', function(messageFull, job)
 		TriggerEvent('chat:addMessage', messageFull)
     end
 end)
-
------------------------------------------------------------------------------------------------------------------------------------
-
--- Mechanic Emergency
 
 RegisterNetEvent('esx_jobChat:mechEmergencySend')
 AddEventHandler('esx_jobChat:mechEmergencySend', function(messageFull)
@@ -151,81 +122,57 @@ AddEventHandler('esx_jobChat:mechEmergencySend', function(messageFull)
     end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Mechanic Emergency Alert
-
 RegisterNetEvent('esx_jobChat:mechEmergencySend')
 AddEventHandler('esx_jobChat:mechEmergencySend', function(messageFull)
 	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'mechanic' then
 		SetNotificationTextEntry("STRINGS");
 		AddTextComponentString(normalString);
-		SetNotificationMessage("CHAR_CARSITE3", "CHAR_CARSITE3", true, 8, "~y~Notice Mechanic~s~", "GPS location sent");
+		SetNotificationMessage("CHAR_CARSITE3", "CHAR_CARSITE3", true, 8, "~y~Aviso Mecanico~s~", "Localizacion enviada!");
 		DrawNotification(false, true);
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Emergency 911 
-
-RegisterNetEvent('esx_jobChat:911EmergencySend')
-AddEventHandler('esx_jobChat:911EmergencySend', function(messageFull)
+RegisterNetEvent('esx_jobChat:062EmergencySend')
+AddEventHandler('esx_jobChat:062EmergencySend', function(messageFull)
 	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'police' then
 		TriggerEvent('chat:addMessage', messageFull)
     end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Emergency 911 Alert Message
-
-RegisterNetEvent('esx_jobChat:911EmergencySend')
-AddEventHandler('esx_jobChat:911EmergencySend', function(messageFull)
+RegisterNetEvent('esx_jobChat:062EmergencySend')
+AddEventHandler('esx_jobChat:062EmergencySend', function(messageFull)
 	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'police' then
 		SetNotificationTextEntry("STRINGS");
 		AddTextComponentString(normalString);
-		SetNotificationMessage("CHAR_CALL911", "CHAR_CALL911", true, 8, "~y~Notice 911~s~", "GPS location sent");
+		SetNotificationMessage("CHAR_CALL062", "CHAR_CALL062", true, 8, "~y~Aviso 062~s~", "Localizacion enviada!");
 		DrawNotification(false, true);
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- NonEmergency 311
-
-RegisterNetEvent('esx_jobChat:311EmergencySend')
-AddEventHandler('esx_jobChat:311EmergencySend', function(messageFull)
+RegisterNetEvent('esx_jobChat:112EmergencySend')
+AddEventHandler('esx_jobChat:112EmergencySend', function(messageFull)
 	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'ambulance' then
 		TriggerEvent('chat:addMessage', messageFull)
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- NonEmergency 311 Alert Message
-
-RegisterNetEvent('esx_jobChat:311EmergencySend')
-AddEventHandler('esx_jobChat:311EmergencySend', function(messageFull)
+RegisterNetEvent('esx_jobChat:112EmergencySend')
+AddEventHandler('esx_jobChat:112EmergencySend', function(messageFull)
 	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'ambulance' then
 		SetNotificationTextEntry("STRINGS");
 		AddTextComponentString(normalString);
-		SetNotificationMessage("CHAR_CHAT_CALL", "CHAR_CHAT_CALL", true, 8, "~y~ICU Notice~s~", "GPS location sent");
+		SetNotificationMessage("CHAR_CHAT_CALL", "CHAR_CHAT_CALL", true, 8, "~y~Aviso 112~s~", "Localizacion enviada!");
 		DrawNotification(false, true);
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Marker 911
-
-RegisterNetEvent('esx_jobChat:911Marker')
-AddEventHandler('esx_jobChat:911Marker', function(targetCoords, type)
+RegisterNetEvent('esx_jobChat:062Marker')
+AddEventHandler('esx_jobChat:062Marker', function(targetCoords, type)
 	PlayerData = ESX.GetPlayerData()
 	if PlayerData.job.name == 'police' then
         local alpha = 250
@@ -233,17 +180,17 @@ AddEventHandler('esx_jobChat:911Marker', function(targetCoords, type)
 
 		SetBlipSprite (call, 480)
 		SetBlipDisplay(call, 4)
-		SetBlipScale  (call, 1.6)
+		SetBlipScale  (call, 0.6)
         SetBlipAsShortRange(call, true)
         SetBlipAlpha(call, alpha)
 
         SetBlipHighDetail(call, true)
 		SetBlipAsShortRange(call, true)
 
-		if type == '911' then
+		if type == '062' then
 			SetBlipColour (call, 38)
 			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentString('911')
+			AddTextComponentString('Ayuda policia')
 			EndTextCommandSetBlipName(call)
 		end
 
@@ -260,12 +207,8 @@ AddEventHandler('esx_jobChat:911Marker', function(targetCoords, type)
 	end
 end)
 
------------------------------------------------------------------------------------------------------------------------------------
-
--- Marker 311
-
-RegisterNetEvent('esx_jobChat:311Marker')
-AddEventHandler('esx_jobChat:311Marker', function(targetCoords, type)
+RegisterNetEvent('esx_jobChat:112Marker')
+AddEventHandler('esx_jobChat:112Marker', function(targetCoords, type)
     PlayerData = ESX.GetPlayerData()
     if PlayerData.job.name == 'ambulance' then
 		local alpha = 250
@@ -273,17 +216,17 @@ AddEventHandler('esx_jobChat:311Marker', function(targetCoords, type)
 		
 		SetBlipSprite (call, 480)
 		SetBlipDisplay(call, 4)
-		SetBlipScale  (call, 1.6)
+		SetBlipScale  (call, 0.6)
         SetBlipAsShortRange(call, true)
         SetBlipAlpha(call, alpha)
 
         SetBlipHighDetail(call, true)
 		SetBlipAsShortRange(call, true)
 
-		if type == '311' then
+		if type == '112' then
 			SetBlipColour (call, 1)
 			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentString('Help')
+			AddTextComponentString('Ayuda medico')
 			EndTextCommandSetBlipName(call)
 		end
 
@@ -299,10 +242,6 @@ AddEventHandler('esx_jobChat:311Marker', function(targetCoords, type)
 		end
 	end
 end)
-
------------------------------------------------------------------------------------------------------------------------------------
-
--- Marker Mechanic
 
 RegisterNetEvent('esx_jobChat:mechMarker')
 AddEventHandler('esx_jobChat:mechMarker', function(targetCoords, type)
@@ -313,7 +252,7 @@ AddEventHandler('esx_jobChat:mechMarker', function(targetCoords, type)
 		
 		SetBlipSprite (call, 480)
 		SetBlipDisplay(call, 4)
-		SetBlipScale  (call, 1.6)
+		SetBlipScale  (call, 0.6)
         SetBlipAsShortRange(call, true)
         SetBlipAlpha(call, alpha)
 
@@ -323,7 +262,7 @@ AddEventHandler('esx_jobChat:mechMarker', function(targetCoords, type)
 		if type == 'mech' then
 			SetBlipColour (call, 64)
 			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentString('Help Mechanic')
+			AddTextComponentString('Ayuda mecanico')
 			EndTextCommandSetBlipName(call)
 		end
 
@@ -339,5 +278,3 @@ AddEventHandler('esx_jobChat:mechMarker', function(targetCoords, type)
 		end
 	end
 end)
-
------------------------------------------------------------------------------------------------------------------------------------
